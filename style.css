@@ -422,3 +422,31 @@ html {
     }
 
 }
+
+/* Mobile Navigation */
+
+#menuBtn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    #menuBtn {
+        display: block;
+        font-size: 25px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    #navLinks {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #navLinks.show {
+        display: flex;
+    }
+
+}
