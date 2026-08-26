@@ -406,3 +406,19 @@ html {
 .contact button:hover {
     transform: scale(1.05);
 }
+
+@media (max-width: 768px) {
+
+    .hero h2 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .contact {
+        padding: 20px;
+    }
+
+}
