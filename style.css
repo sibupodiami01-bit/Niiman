@@ -479,3 +479,9 @@ html {
 html {
     scroll-behavior: smooth;
 }
+
+nav a.active {
+    color: #00ff88;
+    font-weight: bold;
+}
+

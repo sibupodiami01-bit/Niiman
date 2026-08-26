@@ -37,3 +37,34 @@ if(contactForm){
     });
 
 }
+
+// Active Navbar Link Highlight
+
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 100;
+
+        if (scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    navItems.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+
+    });
+
+});
