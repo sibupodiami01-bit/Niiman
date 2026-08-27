@@ -28,13 +28,17 @@ if(contactForm){
 
     contactForm.addEventListener("submit", function(e){
 
-        e.preventDefault();
+    e.preventDefault();
 
-        formMessage.innerHTML = "✅ Message Sent Successfully!";
+    formMessage.innerHTML = "✅ Message Sent Successfully!";
 
-        contactForm.reset();
+    setTimeout(() => {
+        formMessage.innerHTML = "";
+    }, 3000);
 
-    });
+    contactForm.reset();
+
+});
 
 }
 
@@ -131,8 +135,14 @@ buttons.forEach(button => {
 
         renderCart();
 
-        alert(button.dataset.name + " added to cart!");
+        const toast = document.getElementById("toast");
 
+toast.textContent = "✅ " + button.dataset.name + " added to cart!";
+toast.classList.add("show");
+
+setTimeout(() => {
+    toast.classList.remove("show");
+}, 2000);
     });
 
 });
@@ -181,4 +191,15 @@ if (searchInput) {
 
     });
 
+}
+
+function showToast() {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = "✅ Message Sent Successfully!";
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
 }
