@@ -61,7 +61,13 @@
 </section>
        
         <section id="products" class="products">
-
+           <div class="search-box">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search products..."
+    >
+</div>
     <h2>Featured Products</h2>
 
     <div class="product-grid">
@@ -161,11 +167,24 @@
 
 </section>
 
-    </main>
+</main>
 
-    <footer>
-        <p>© 2026 Niiman</p>
-    </footer>
+<footer>
+    <p>© 2026 Niiman</p>
+</footer>
+
+<!-- Cart Sidebar -->
+<div id="cartSidebar" class="cart-sidebar">
+
+    <h2>🛒 Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <h3>Total: ₹<span id="cartTotal">0</span></h3>
+
+    <button id="closeCart">Close</button>
+
+</div>
 
 <script src="script.js"></script>
 

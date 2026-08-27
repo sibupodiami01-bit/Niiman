@@ -69,32 +69,116 @@ window.addEventListener("scroll", () => {
 
 });
 
-// ===== Shopping Cart =====
+// ===== Professional Shopping Cart =====
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartCount = document.getElementById("cartCount");
+const cartBtn = document.getElementById("cartBtn");
+const cartSidebar = document.getElementById("cartSidebar");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const closeCart = document.getElementById("closeCart");
+
 const buttons = document.querySelectorAll(".addToCart");
 
-function updateCartCount() {
-    if (cartCount) {
-        cartCount.textContent = cart.length;
-    }
+function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+function renderCart() {
+
+    cartItems.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+
+        total += Number(item.price);
+
+        const div = document.createElement("div");
+
+        div.className = "cart-item";
+
+        div.innerHTML = `
+            <strong>${item.name}</strong><br>
+            ₹${item.price}
+            <br><br>
+            <button onclick="removeItem(${index})">
+                Remove
+            </button>
+        `;
+
+        cartItems.appendChild(div);
+
+    });
+
+    cartTotal.textContent = total;
+    cartCount.textContent = cart.length;
+
+    saveCart();
+
+}
+
 buttons.forEach(button => {
+
     button.addEventListener("click", () => {
-        const item = {
+
+        cart.push({
             name: button.dataset.name,
             price: button.dataset.price
-        };
+        });
 
-        cart.push(item);
-        updateCartCount();
+        renderCart();
 
-        alert(item.name + " added to cart!");
+        alert(button.dataset.name + " added to cart!");
+
     });
+
 });
 
-updateCartCount();
+cartBtn.onclick = function(e) {
+    e.preventDefault();
+    cartSidebar.classList.add("open");
+}
+
+closeCart.onclick = function() {
+    cartSidebar.classList.remove("open");
+}
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+
+    renderCart();
+
+}
+
+renderCart();
+
+// ===== Product Search =====
+
+const searchInput = document.getElementById("searchInput");
+const productCards = document.querySelectorAll(".product-card");
+
+if (searchInput) {
+
+    searchInput.addEventListener("keyup", function () {
+
+        const value = this.value.toLowerCase();
+
+        productCards.forEach(card => {
+
+            const name = card.querySelector("h3").textContent.toLowerCase();
+
+            if (name.includes(value)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+
+        });
+
+    });
+
+}
