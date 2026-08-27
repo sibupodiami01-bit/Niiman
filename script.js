@@ -68,3 +68,33 @@ window.addEventListener("scroll", () => {
     });
 
 });
+
+// ===== Shopping Cart =====
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const cartCount = document.getElementById("cartCount");
+const buttons = document.querySelectorAll(".addToCart");
+
+function updateCartCount() {
+    if (cartCount) {
+        cartCount.textContent = cart.length;
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const item = {
+            name: button.dataset.name,
+            price: button.dataset.price
+        };
+
+        cart.push(item);
+        updateCartCount();
+
+        alert(item.name + " added to cart!");
+    });
+});
+
+updateCartCount();

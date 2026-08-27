@@ -28,14 +28,18 @@
     </header>
 
     <nav>
-        <button id="menuBtn">☰</button>
+    <button id="menuBtn">☰</button>
 
     <div id="navLinks">
         <a href="#home">Home</a>
+        <a href="#products">Products</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <a href="#" id="cartBtn">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </a>
     </div>
-    </nav>
+</nav>
 
     <main>
 
@@ -66,21 +70,33 @@
             <img src="tshirt.jpg" alt="Niiman T-Shirt">
             <h3>Niiman T-Shirt</h3>
             <p class="price">₹999</p>
-            <button>Add to Cart</button>
+            <button class="addToCart"
+        data-name="Niiman T-Shirt"
+        data-price="999">
+    Add to Cart
+</button>
         </div>
 
         <div class="product-card">
             <img src="hoodie.jpg" alt="Niiman Hoodie">
             <h3>Niiman Hoodie</h3>
             <p class="price">₹1,999</p>
-            <button>Add to Cart</button>
+            <button class="addToCart"
+        data-name="Niiman Hoodie"
+        data-price="1999">
+    Add to Cart
+</button>
         </div>
 
         <div class="product-card">
             <img src="cap.jpg" alt="Niiman Cap">
             <h3>Niiman Cap</h3>
             <p class="price">₹599</p>
-            <button>Add to Cart</button>
+            <button class="addToCart"
+        data-name="Niiman Cap"
+        data-price="599">
+    Add to Cart
+</button>
         </div>
 
     </div>
