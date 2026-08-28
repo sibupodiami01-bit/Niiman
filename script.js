@@ -83,7 +83,7 @@ const cartSidebar = document.getElementById("cartSidebar");
 const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
 const closeCart = document.getElementById("closeCart");
-
+const clearCart = document.getElementById("clearCart");
 const buttons = document.querySelectorAll(".addToCart");
 
 function saveCart() {
@@ -93,12 +93,24 @@ function saveCart() {
 function renderCart() {
 
     cartItems.innerHTML = "";
+    
+    if (cart.length === 0) {
+
+    cartItems.innerHTML = "<p>🛒 Your cart is empty.</p>";
+
+    cartTotal.textContent = "0";
+    cartCount.textContent = "0";
+
+    saveCart();
+
+    return;
+}    
 
     let total = 0;
 
     cart.forEach((item, index) => {
 
-        total += Number(item.price);
+        total += item.price * item.quantity;
 
         const div = document.createElement("div");
 
@@ -107,7 +119,18 @@ function renderCart() {
         div.innerHTML = `
             <strong>${item.name}</strong><br>
             ₹${item.price}
+            <br>
+            Qty: ${item.quantity}
             <br><br>
+
+            <button onclick="decreaseQty(${index})">
+                -
+            </button>
+
+            <button onclick="increaseQty(${index})">
+                +
+            </button>
+
             <button onclick="removeItem(${index})">
                 Remove
             </button>
@@ -128,10 +151,21 @@ buttons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        cart.push({
-            name: button.dataset.name,
-            price: button.dataset.price
-        });
+        const existing = cart.find(item => item.name === button.dataset.name);
+
+if(existing){
+
+    existing.quantity++;
+
+}else{
+
+    cart.push({
+        name: button.dataset.name,
+        price: Number(button.dataset.price),
+        quantity: 1
+    });
+
+}
 
         renderCart();
 
@@ -154,6 +188,39 @@ cartBtn.onclick = function(e) {
 
 closeCart.onclick = function() {
     cartSidebar.classList.remove("open");
+}
+
+clearCart.onclick = function() {
+
+    cart = [];
+
+    renderCart();
+
+}
+
+function increaseQty(index) {
+
+    cart[index].quantity++;
+
+    renderCart();
+
+}
+
+
+function decreaseQty(index) {
+
+    if(cart[index].quantity > 1){
+
+        cart[index].quantity--;
+
+    } else {
+
+        cart.splice(index, 1);
+
+    }
+
+    renderCart();
+
 }
 
 function removeItem(index) {
