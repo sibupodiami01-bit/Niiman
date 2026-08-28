@@ -38,6 +38,9 @@
         <a href="#" id="cartBtn">
             🛒 Cart (<span id="cartCount">0</span>)
         </a>
+        <a href="#" id="wishlistBtn">
+    ❤️ Wishlist (<span id="wishlistCount">0</span>)
+</a>
     </div>
 </nav>
 
@@ -75,6 +78,11 @@
         <div class="product-card">
             <img src="tshirt.jpg" alt="Niiman T-Shirt">
             <h3>Niiman T-Shirt</h3>
+            <button class="wishlistBtn"
+    data-name="Niiman T-Shirt">
+    🤍
+</button>
+            <p class="rating">⭐⭐⭐⭐☆ (4.5)</p>
             <p class="price">₹999</p>
             <button class="addToCart"
         data-name="Niiman T-Shirt"
@@ -86,6 +94,11 @@
         <div class="product-card">
             <img src="hoodie.jpg" alt="Niiman Hoodie">
             <h3>Niiman Hoodie</h3>
+            <button class="wishlistBtn"
+    data-name="Niiman Hoodie">
+    🤍
+</button>
+            <p class="rating">⭐⭐⭐⭐⭐ (5.0)</p>
             <p class="price">₹1,999</p>
             <button class="addToCart"
         data-name="Niiman Hoodie"
@@ -97,6 +110,11 @@
         <div class="product-card">
             <img src="cap.jpg" alt="Niiman Cap">
             <h3>Niiman Cap</h3>
+            <button class="wishlistBtn"
+    data-name="Niiman Cap">
+    🤍
+</button>
+            <p class="rating">⭐⭐⭐⭐☆ (4.2)</p>
             <p class="price">₹599</p>
             <button class="addToCart"
         data-name="Niiman Cap"
@@ -188,8 +206,22 @@
    <div id="toast" class="toast">
     ✅ Message Sent Successfully!
 </div>
+    <!-- Wishlist Sidebar -->
+
+<div id="wishlistSidebar" class="cart-sidebar">
+
+    <h2>❤️ Your Wishlist</h2>
+
+    <div id="wishlistItems"></div>
+
+    <button id="closeWishlist">Close</button>
+
+</div>
 
 <script src="script.js"></script>
+<script src="cart.js"></script>
+<script src="wishlist.js"></script>
+<script src="search.js"></script>
 </body>
 
 </html>

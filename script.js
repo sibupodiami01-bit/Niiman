@@ -270,3 +270,125 @@ function showToast() {
         toast.classList.remove("show");
     }, 2000);
 }
+
+// ===== Wishlist v1.0 =====
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+const wishlistItems = document.getElementById("wishlistItems");
+
+function renderWishlist(){
+
+    if(!wishlistItems) return;
+
+    wishlistItems.innerHTML = "";
+
+    if(wishlist.length === 0){
+
+        wishlistItems.innerHTML = "<p>❤️ Your wishlist is empty.</p>";
+
+        return;
+    }
+
+    wishlist.forEach((item)=>{
+
+        const div = document.createElement("div");
+
+        div.innerHTML = `
+    <p>
+        ${item}
+        <button onclick="removeWishlist('${item}')">
+            ❌
+        </button>
+    </p>
+`;
+
+        wishlistItems.appendChild(div);
+
+    });
+
+}
+const wishlistCount = document.getElementById("wishlistCount");
+
+function removeWishlist(item){
+
+    wishlist = wishlist.filter(product => product !== item);
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+    updateWishlistCount();
+
+    renderWishlist();
+
+}
+
+function updateWishlistCount(){
+
+    if(wishlistCount){
+        wishlistCount.textContent = wishlist.length;
+    }
+
+}
+
+updateWishlistCount();
+renderWishlist();
+const wishlistButtons = document.querySelectorAll(".wishlistBtn");
+
+wishlistButtons.forEach(button => {
+
+    const productName = button.dataset.name;
+
+// ===== Wishlist Sidebar =====
+
+const wishlistBtn = document.getElementById("wishlistBtn");
+const wishlistSidebar = document.getElementById("wishlistSidebar");
+const closeWishlist = document.getElementById("closeWishlist");
+
+if(wishlistBtn){
+
+    wishlistBtn.onclick = function(e){
+
+        e.preventDefault();
+
+        wishlistSidebar.classList.add("open");
+
+    }
+
+}
+
+
+if(closeWishlist){
+
+    closeWishlist.onclick = function(){
+
+        wishlistSidebar.classList.remove("open");
+
+    }
+
+}
+
+    // Refresh ke baad heart state check
+    if(wishlist.includes(productName)){
+        button.textContent = "❤️";
+    }
+
+    button.addEventListener("click", () => {
+
+        if(button.textContent === "🤍"){
+
+            button.textContent = "❤️";
+            wishlist.push(productName);
+
+        } else {
+
+            button.textContent = "🤍";
+
+            wishlist = wishlist.filter(item => item !== productName);
+
+        }
+
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        updateWishlistCount();
+renderWishlist();
+    });
+
+});

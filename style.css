@@ -662,3 +662,23 @@ nav a.active {
     opacity: 1;
     transform: translate(-50%, 0);
 }
+
+.rating {
+    color: gold;
+    font-size: 15px;
+    margin: 6px 0;
+    font-weight: bold;
+}
+
+.wishlistBtn {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 8px 0;
+    transition: transform 0.2s ease;
+}
+
+.wishlistBtn:hover {
+    transform: scale(1.2);
+}
