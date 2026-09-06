@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Niiman Product</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>Niiman Product Details</h1>
+
+<div class="product-details">
+
+<img src="tshirt.jpg" alt="Niiman T-Shirt" class="product-image">
+
+    <h2>Niiman T-Shirt</h2>
+
+    <p class="rating">⭐⭐⭐⭐☆ (4.5)</p>
+
+    <p class="price">₹999</p>
+<div class="quantity-box">
+
+    <button id="minusBtn">-</button>
+
+    <span id="quantity">1</span>
+
+    <button id="plusBtn">+</button>
+
+</div>
+
+<h3>Size</h3>
+
+<div class="size-options">
+
+    <button class="sizeBtn active" data-size="M">M</button>
+
+    <button class="sizeBtn" data-size="L">L</button>
+
+    <button class="sizeBtn" data-size="XL">XL</button>
+
+    <button class="sizeBtn" data-size="XXL">XXL</button>
+
+</div>
+
+    <p>
+        Premium quality Niiman T-Shirt.
+        Comfortable and stylish design.
+    </p>
+
+    <button id="productAddCart"
+data-name="Niiman T-Shirt"
+data-price="999"
+data-size="M">
+🛒 Add to Cart
+</button>
+
+<button id="productWishlist"
+data-name="Niiman T-Shirt">
+    ❤️ Wishlist
+</button>
+<a href="index.html">
+    <button>
+        ⬅️ Back to Products
+    </button>
+</a>
+<div id="cartData" style="display:none;">
+
+    <span id="cartCount">0</span>
+
+    <div id="cartItems"></div>
+
+    <span id="cartTotal">0</span>
+
+</div>
+
+<div id="toast" class="toast"></div>
+</div>
+<script src="product.js"></script>
+</body>
+</html>
