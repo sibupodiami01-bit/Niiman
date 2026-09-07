@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Niiman Checkout</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🛒 Niiman Checkout</h1>
+
+<div class="checkout-box">
+
+<h2>Customer Details</h2>
+
+<input type="text" id="customerName" placeholder="Your Name">
+
+<input type="tel" id="customerPhone" placeholder="Mobile Number">
+
+<textarea id="customerAddress" placeholder="Full Address"></textarea>
+
+<h2>Order Summary</h2>
+
+<div id="checkoutItems"></div>
+
+<h3>Total: ₹<span id="checkoutTotal">0</span></h3>
+
+<button id="placeOrder">
+    ✅ Place Order
+</button>
+
+</div>
+
+
+<script src="checkout.js"></script>
+
+</body>
+
+</html>

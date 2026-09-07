@@ -308,11 +308,13 @@ function removeWishlist(item){
 
     wishlist = wishlist.filter(product => product !== item);
 
-            localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        updateWishlistCount();
-        renderWishlist();
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
 
-    }
+    updateWishlistCount();
+
+    renderWishlist();
+
+}
 
 function updateWishlistCount(){
 
@@ -379,19 +381,8 @@ if(closeWishlist){
 
         }
 
-                localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
         updateWishlistCount();
-        renderWishlist();
+renderWishlist();
     });
 
-});
-
-// ===== Checkout Button =====
-
-const checkoutBtn = document.querySelector("#checkoutBtn");
-
-checkoutBtn.addEventListener("click", function(){
-
-    window.location.href = "checkout.html";
-
-});
