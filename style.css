@@ -791,3 +791,11 @@ nav a.active {
     font-size: 18px;
 
 }
+
+.cart-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}

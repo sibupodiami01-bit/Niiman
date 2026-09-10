@@ -117,18 +117,20 @@ function renderCart() {
         div.className = "cart-item";
 
         div.innerHTML = `
-    <strong>${item.name}</strong><br>
-    ₹${item.price}<br>
-   Size: ${item.size}<br>
+<img src="${item.image || 'logo.png'}" class="cart-image">
+
+<strong>${item.name}</strong><br>
+₹${item.price}<br>
+Size: ${item.size || "M"}<br>
 Qty: ${item.quantity}<br><br>
 
-    <button onclick="decreaseQty(${index})">-</button>
+<button onclick="decreaseQty(${index})">−</button>
 
-    <button onclick="increaseQty(${index})">+</button>
+<button onclick="increaseQty(${index})">+</button>
 
-    <button onclick="removeItem(${index})">
-        Remove
-    </button>
+<button onclick="removeItem(${index})">
+🗑 Remove
+</button>
 `;
 
         cartItems.appendChild(div);
@@ -157,6 +159,8 @@ if(existing){
     cart.push({
         name: button.dataset.name,
         price: Number(button.dataset.price),
+        image: button.dataset.image,
+        size: button.dataset.size,
         quantity: 1
     });
 
@@ -166,7 +170,7 @@ if(existing){
 
         const toast = document.getElementById("toast");
 
-toast.textContent = "✅ " + button.dataset.name + " added to cart!";
+toast.textContent = "✅ " + button.dataset.name + " | size=" + button.dataset.size + " added to cart!";
 toast.classList.add("show");
 
 setTimeout(() => {
@@ -185,9 +189,11 @@ closeCart.onclick = function() {
     cartSidebar.classList.remove("open");
 }
 
-clearCart.onclick = function() {
+clearCart.onclick = function(){
 
     cart = [];
+
+    localStorage.removeItem("cart");
 
     renderCart();
 

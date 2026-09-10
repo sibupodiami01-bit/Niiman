@@ -27,17 +27,16 @@ if (productAddCart) {
 
         } else {
     cart.push({
-       name: productName,
-       price: productPrice,
-       size: productSize,
-       quantity: quantity
-    });
+   name: productName,
+   price: productPrice,
+   image: productAddCart.dataset.image,
+   size: productSize,
+   quantity: quantity
+});
 
         }
 
         localStorage.setItem("cart", JSON.stringify(cart));
-         
-        alert(localStorage.getItem("cart"));
 
         const toast = document.getElementById("toast");
 
