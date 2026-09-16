@@ -38,8 +38,11 @@
         <a href="#" id="cartBtn">
             🛒 Cart (<span id="cartCount">0</span>)
         </a>
-        <a href="#" id="wishlistBtn">
+        <a href="wishlist.html" id="wishlistBtn">
     ❤️ Wishlist (<span id="wishlistCount">0</span>)
+</a>
+<a href="login.html" id="authBtn">
+    🔐 Login
 </a>
     </div>
 </nav>
@@ -79,7 +82,9 @@
             <img src="tshirt.jpg" alt="Niiman T-Shirt">
             <h3>Niiman T-Shirt</h3>
             <button class="wishlistBtn"
-    data-name="Niiman T-Shirt">
+    data-name="Niiman T-Shirt"
+    data-price="999"
+    data-image="tshirt.jpg">
     🤍
 </button>
             <p class="rating">⭐⭐⭐⭐☆ (4.5)</p>
@@ -100,7 +105,9 @@
             <img src="hoodie.jpg" alt="Niiman Hoodie">
             <h3>Niiman Hoodie</h3>
             <button class="wishlistBtn"
-    data-name="Niiman Hoodie">
+    data-name="Niiman Hoodie"
+    data-price="1999"
+    data-image="hoodie.jpg">
     🤍
 </button>
             <p class="rating">⭐⭐⭐⭐⭐ (5.0)</p>
@@ -121,8 +128,10 @@
         <div class="product-card">
             <img src="cap.jpg" alt="Niiman Cap">
             <h3>Niiman Cap</h3>
-            <button class="wishlistBtn" 
-    data-name="Niiman Cap">
+            <button class="wishlistBtn"
+    data-name="Niiman Cap"
+    data-price="599"
+    data-image="cap.jpg">
     🤍
 </button>
             <p class="rating">⭐⭐⭐⭐☆ (4.2)</p>
@@ -240,6 +249,7 @@
 
 <script src="script.js"></script>
 <script src="cart.js"></script>
+<script src="wishlist-utils.js"></script>
 <script src="wishlist.js"></script>
 <script src="search.js"></script>
 </body>

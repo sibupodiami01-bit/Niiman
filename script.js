@@ -123,6 +123,7 @@ function renderCart() {
 ₹${item.price}<br>
 Size: ${item.size || "M"}<br>
 Qty: ${item.quantity}<br><br>
+Subtotal: ₹${item.price * item.quantity}<br><br>
 
 <button onclick="decreaseQty(${index})">−</button>
 
@@ -165,6 +166,9 @@ if(existing){
     });
 
 }
+
+// Remove from wishlist after adding to cart
+removeFromWishlist(button.dataset.name);
 
         renderCart();
 
@@ -274,67 +278,113 @@ function showToast() {
 
 // ===== Wishlist v1.0 =====
 
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let wishlist = getWishlist();
 const wishlistItems = document.getElementById("wishlistItems");
+const wishlistCount = document.getElementById("wishlistCount");
 
-function renderWishlist(){
+function normalizeWishlistItem(item) {
+    if (typeof item === "string") {
+        const legacyMap = {
+            "Niiman T-Shirt": { name: "Niiman T-Shirt", price: "999", image: "tshirt.jpg" },
+            "Niiman Hoodie": { name: "Niiman Hoodie", price: "1999", image: "hoodie.jpg" },
+            "Niiman Cap": { name: "Niiman Cap", price: "599", image: "cap.jpg" }
+        };
+        return legacyMap[item] || { name: item, price: "", image: "" };
+    }
+    return item || {};
+}
 
-    if(!wishlistItems) return;
+function renderWishlist() {
+    if (!wishlistItems) return;
 
     wishlistItems.innerHTML = "";
 
-    if(wishlist.length === 0){
-
+    if (wishlist.length === 0) {
         wishlistItems.innerHTML = "<p>❤️ Your wishlist is empty.</p>";
-
         return;
     }
 
-    wishlist.forEach((item)=>{
+    wishlist.forEach((item, index) => {
+        const product = normalizeWishlistItem(item);
 
         const div = document.createElement("div");
-
         div.innerHTML = `
-    <p>
-        ${item}
-        <button onclick="removeWishlist('${item}')">
-            ❌
-        </button>
-    </p>
-`;
+            <p>
+                ${product.name}${product.price ? " - ₹" + product.price : ""}
+                <button onclick="removeWishlist(${index})">❌</button>
+            </p>
+        `;
 
         wishlistItems.appendChild(div);
-
     });
-
 }
-const wishlistCount = document.getElementById("wishlistCount");
 
-function removeWishlist(item){
+function removeWishlist(index) {
 
-    wishlist = wishlist.filter(product => product !== item);
+    const product = wishlist[index];
 
-            localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        updateWishlistCount();
-        renderWishlist();
+    removeFromWishlist(product.name);
 
-    }
+    wishlist = getWishlist();
 
-function updateWishlistCount(){
+    updateWishlistCount();
+    renderWishlist();
+}
 
-    if(wishlistCount){
+function updateWishlistCount() {
+    if (wishlistCount) {
         wishlistCount.textContent = wishlist.length;
     }
-
 }
 
 updateWishlistCount();
 renderWishlist();
+
 const wishlistButtons = document.querySelectorAll(".wishlistBtn");
 
 wishlistButtons.forEach(button => {
 
-    const productName = button.dataset.name;
+    const productData = {
+        name: button.dataset.name,
+        price: button.dataset.price,
+        image: button.dataset.image
+    };
+
+    const saved = wishlist.some(item => {
+        if (typeof item === "string") {
+            return item === productData.name;
+        }
+
+        return item && item.name === productData.name;
+    });
+
+    if (saved) {
+        button.textContent = "❤️";
+    }
+
+    button.addEventListener("click", () => {
+
+    if (isInWishlist(productData.name)) {
+
+        removeFromWishlist(productData.name);
+
+        button.textContent = "🤍";
+
+    } else {
+
+        addToWishlist(productData);
+
+        button.textContent = "❤️";
+
+    }
+
+    wishlist = getWishlist();
+
+    updateWishlistCount();
+    renderWishlist();
+
+});
+
 
 // ===== Wishlist Sidebar =====
 
@@ -342,55 +392,26 @@ const wishlistBtn = document.getElementById("wishlistBtn");
 const wishlistSidebar = document.getElementById("wishlistSidebar");
 const closeWishlist = document.getElementById("closeWishlist");
 
-if(wishlistBtn){
+if (wishlistBtn) {
 
-    wishlistBtn.onclick = function(e){
+    wishlistBtn.onclick = function(e) {
 
-        e.preventDefault();
+    // Sidebar open nahi karna
+    // Direct wishlist.html open hoga
 
-        wishlistSidebar.classList.add("open");
+};
 
-    }
+if (closeWishlist) {
 
-}
+    closeWishlist.onclick = function() {
 
-
-if(closeWishlist){
-
-    closeWishlist.onclick = function(){
-
-        wishlistSidebar.classList.remove("open");
-
-    }
-
-}
-
-    // Refresh ke baad heart state check
-    if(wishlist.includes(productName)){
-        button.textContent = "❤️";
-    }
-
-    button.addEventListener("click", () => {
-
-        if(button.textContent === "🤍"){
-
-            button.textContent = "❤️";
-            wishlist.push(productName);
-
-        } else {
-
-            button.textContent = "🤍";
-
-            wishlist = wishlist.filter(item => item !== productName);
-
+        if (wishlistSidebar) {
+            wishlistSidebar.classList.remove("open");
         }
 
-                localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        updateWishlistCount();
-        renderWishlist();
-    });
+    };
 
-});
+}
 
 // ===== Checkout Button =====
 
@@ -401,3 +422,26 @@ checkoutBtn.addEventListener("click", function(){
     window.location.href = "checkout.html";
 
 });
+
+// ===== Login / Profile Button =====
+
+const authBtn = document.querySelector("#authBtn");
+const loggedInUser = localStorage.getItem("loggedInUser");
+
+if (authBtn) {
+
+    if (loggedInUser) {
+
+        authBtn.textContent = "👤 " + loggedInUser;
+        authBtn.href = "profile.html";
+
+    } else {
+
+        authBtn.textContent = "🔐 Login";
+        authBtn.href = "login.html";
+
+    }
+
+}
+
+}

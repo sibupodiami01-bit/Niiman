@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Niiman Profile</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Niiman</h1>
+    <p>User Profile</p>
+</header>
+
+
+<div class="auth-box">
+
+    <h2 id="profileName">Welcome</h2>
+
+    <p id="profileEmail">Email</p>
+
+    <hr>
+
+    <button onclick="window.location.href='orders.html'">
+        📦 My Orders
+    </button>
+
+    <button onclick="window.location.href='wishlist.html'">
+        ❤️ My Wishlist
+    </button>
+
+    <button onclick="logout()">
+        Logout
+    </button>
+
+</div>
+
+
+<script>
+
+let user = JSON.parse(localStorage.getItem("niimanUser"));
+
+if(user){
+
+    document.getElementById("profileName").innerHTML =
+"Welcome, " + user.name;
+
+document.getElementById("profileEmail").innerHTML =
+"📧 " + user.email;
+
+}else{
+
+    window.location.href = "login.html";
+
+}
+
+
+function logout(){
+
+    localStorage.removeItem("loggedInUser");
+
+    alert("Logged Out");
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+
+
+</body>
+</html>

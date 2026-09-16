@@ -24,7 +24,14 @@
 <h2>Order Summary</h2>
 
 <div id="checkoutItems"></div>
-
+<div class="coupon-box">
+    <input type="text" id="couponCode" placeholder="Enter Coupon Code">
+    <button id="applyCoupon">Apply</button>
+    <p id="couponMessage"></p>
+</div>
+<p id="subtotal">Subtotal: ₹0</p>
+<p id="discountAmount">Discount: ₹0</p>
+<p id="deliveryCharge">Delivery Charge: ₹0</p>
 <h3>Total: ₹<span id="checkoutTotal">0</span></h3>
 
 <button id="placeOrder">

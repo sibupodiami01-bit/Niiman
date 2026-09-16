@@ -69,58 +69,42 @@ if (productAddCart) {
 const productWishlist =
     document.getElementById("productWishlist");
 
-let wishlist =
-    JSON.parse(localStorage.getItem("wishlist")) || [];
-
-if (
-    productWishlist &&
-    wishlist.includes(productWishlist.dataset.name)
-) {
-
-    productWishlist.textContent = "❤️ Added";
-
-} else if (productWishlist) {
-
-    productWishlist.textContent = "🤍 Wishlist";
-
-}
-
 
 if (productWishlist) {
 
+    const productName = productWishlist.dataset.name;
+
+
+    if (isInWishlist(productName)) {
+        productWishlist.textContent = "❤️ Added";
+    } else {
+        productWishlist.textContent = "🤍 Wishlist";
+    }
+
+
     productWishlist.addEventListener("click", function () {
 
-        let wishlist =
-            JSON.parse(localStorage.getItem("wishlist")) || [];
+        if (isInWishlist(productName)) {
 
-        const productName =
-            productWishlist.dataset.name;
-
-        if (wishlist.includes(productName)) {
-
-            wishlist = wishlist.filter(
-                item => item !== productName
-            );
+            removeFromWishlist(productName);
 
             productWishlist.textContent = "🤍 Wishlist";
 
         } else {
 
-            wishlist.push(productName);
+            addToWishlist({
+                name: productName,
+                price: productWishlist.dataset.price,
+                image: productWishlist.dataset.image
+            });
 
             productWishlist.textContent = "❤️ Added";
 
         }
 
-        localStorage.setItem(
-            "wishlist",
-            JSON.stringify(wishlist)
-        );
-
     });
 
 }
-
 
 // ===== Quantity Selector =====
 
