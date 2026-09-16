@@ -385,6 +385,7 @@ wishlistButtons.forEach(button => {
 
 });
 
+});
 
 // ===== Wishlist Sidebar =====
 
@@ -399,7 +400,9 @@ if (wishlistBtn) {
     // Sidebar open nahi karna
     // Direct wishlist.html open hoga
 
-};
+    };
+
+}
 
 if (closeWishlist) {
 
@@ -444,4 +447,3 @@ if (authBtn) {
 
 }
 
-}
