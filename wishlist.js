@@ -80,24 +80,31 @@ window.addToCart = function(index) {
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    let existing = cart.find(item => item.name === product.name);
+const productSize = product.size || "M";
 
-    if (existing) {
+let existing = cart.find(
+    item =>
+        item.name === product.name &&
+        (item.size || "M") === productSize
+);
 
-        existing.quantity += 1;
+if (existing) {
 
-    } else {
+    existing.quantity += 1;
 
-        cart.push({
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: 1
-        });
+} else {
 
-    }
+    cart.push({
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        size: productSize,
+        quantity: 1
+    });
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+localStorage.setItem("cart", JSON.stringify(cart));
 
 
     // Wishlist se remove

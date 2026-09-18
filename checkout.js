@@ -1,3 +1,14 @@
+import { auth, db } from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
 // ===== Niiman Checkout =====
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -47,7 +58,7 @@ document.getElementById("discountAmount").innerText =
 // Place Order
 const placeOrder = document.getElementById("placeOrder");
 
-placeOrder.onclick = function() {
+placeOrder.onclick = async function() {
     let name = document.getElementById("customerName").value;
     let phone = document.getElementById("customerPhone").value;
     let address = document.getElementById("customerAddress").value;
@@ -61,7 +72,7 @@ placeOrder.onclick = function() {
 
     let orderID = "NIM" + Date.now();
 
-    let orderData = {
+let orderData = {
     id: orderID,
     date: new Date().toLocaleString(),
     name: name,
@@ -71,11 +82,14 @@ placeOrder.onclick = function() {
     total: finalPayable
 };
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+// Save Order to Firestore
+try {
+    await addDoc(collection(db, "orders"), orderData);
+    console.log("Firestore Order Saved:", orderData);
+} catch (error) {
+    console.error("Firestore Save Error:", error);
+}
 
-orders.push(orderData);
-
-localStorage.setItem("orders", JSON.stringify(orders));
 localStorage.setItem("lastOrder", JSON.stringify(orderData));
 
 localStorage.removeItem("cart");

@@ -16,7 +16,6 @@
     <p>User Profile</p>
 </header>
 
-
 <div class="auth-box">
 
     <h2 id="profileName">Welcome</h2>
@@ -39,38 +38,54 @@
 
 </div>
 
+<script type="module">
 
-<script>
+import { auth } from "./firebase-config.js";
 
-let user = JSON.parse(localStorage.getItem("niimanUser"));
-
-if(user){
-
-    document.getElementById("profileName").innerHTML =
-"Welcome, " + user.name;
-
-document.getElementById("profileEmail").innerHTML =
-"📧 " + user.email;
-
-}else{
-
-    window.location.href = "login.html";
-
-}
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 
-function logout(){
+onAuthStateChanged(auth, (user) => {
 
-    localStorage.removeItem("loggedInUser");
+    if (user) {
 
-    alert("Logged Out");
+        const name = user.displayName || "Niiman User";
+        const email = user.email || "";
 
-    window.location.href = "login.html";
+        document.getElementById("profileName").textContent =
+            "Welcome, " + name;
 
-}
+        document.getElementById("profileEmail").textContent =
+            "📧 " + email;
+
+    } else {
+
+        window.location.href = "login.html";
+
+    }
+
+});
+
+window.logout = async function () {
+
+    try {
+
+        await signOut(auth);
+
+        window.location.replace("index.html");
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+
+};
 
 </script>
-
 
 </body>
 </html>

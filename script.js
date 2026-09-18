@@ -1,3 +1,37 @@
+import { auth } from "./firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const authBtn = document.getElementById("authBtn");
+
+    onAuthStateChanged(auth, (user) => {
+
+        console.log("Index Firebase User:", user);
+
+        if (authBtn) {
+
+            if (user) {
+
+                authBtn.innerHTML = "👤 Profile";
+                authBtn.href = "profile.html";
+
+            } else {
+
+                authBtn.innerHTML = "🔐 Login";
+                authBtn.href = "login.html";
+
+            }
+
+        }
+
+    });
+
+});
 function toggleTheme() {
     document.body.classList.toggle("light");
 }
@@ -425,25 +459,4 @@ checkoutBtn.addEventListener("click", function(){
     window.location.href = "checkout.html";
 
 });
-
-// ===== Login / Profile Button =====
-
-const authBtn = document.querySelector("#authBtn");
-const loggedInUser = localStorage.getItem("loggedInUser");
-
-if (authBtn) {
-
-    if (loggedInUser) {
-
-        authBtn.textContent = "👤 " + loggedInUser;
-        authBtn.href = "profile.html";
-
-    } else {
-
-        authBtn.textContent = "🔐 Login";
-        authBtn.href = "login.html";
-
-    }
-
-}
 
