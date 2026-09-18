@@ -75,6 +75,7 @@ placeOrder.onclick = async function() {
 let orderData = {
     id: orderID,
     date: new Date().toLocaleString(),
+    uid: auth.currentUser ? auth.currentUser.uid : null,
     name: name,
     phone: phone,
     address: address,
@@ -87,7 +88,8 @@ try {
     await addDoc(collection(db, "orders"), orderData);
     console.log("Firestore Order Saved:", orderData);
 } catch (error) {
-    console.error("Firestore Save Error:", error);
+    alert(error.message);
+console.error("Firestore Save Error:", error);
 }
 
 localStorage.setItem("lastOrder", JSON.stringify(orderData));
