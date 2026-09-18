@@ -87,17 +87,16 @@ let orderData = {
 try {
     await addDoc(collection(db, "orders"), orderData);
     console.log("Firestore Order Saved:", orderData);
+
+    localStorage.setItem("lastOrder", JSON.stringify(orderData));
+    localStorage.removeItem("cart");
+
+    window.location.href = "order-success.html";
+
 } catch (error) {
-    alert(error.message);
-console.error("Firestore Save Error:", error);
+    alert("Order save failed. Please try again.");
+    console.error("Firestore Save Error:", error);
 }
-
-localStorage.setItem("lastOrder", JSON.stringify(orderData));
-
-localStorage.removeItem("cart");
-
-window.location.href = "order-success.html";
-};
 
 let discount = 0;
 
