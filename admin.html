@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niiman Admin Panel</title>
+    <link rel="stylesheet" href="style.css?v=admin2">
+</head>
+
+<body>
+
+<header>
+    <h1>🛠 Niiman Admin Panel</h1>
+</header>
+
+<div class="auth-box">
+
+    <h2>Dashboard</h2>
+
+    <div class="dashboard-grid">
+
+        <div class="admin-dashboard-card total-card">
+            <h3>📦 Total Orders</h3>
+            <h1 id="totalOrders">0</h1>
+        </div>
+
+    <div class="admin-dashboard-card processing-card">
+        <h3>Processing</h3>
+        <h1 id="processingOrders">0</h1>
+    </div>
+
+    <div class="admin-dashboard-card shipped-card">
+        <h3>Shipped</h3>
+        <h1 id="shippedOrders">0</h1>
+    </div>
+
+    <div class="admin-dashboard-card delivered-card">
+        <h3>Delivered</h3>
+        <h1 id="deliveredOrders">0</h1>
+    </div>
+
+</div>
+
+    <div id="ordersContainer"></div>
+
+</div>
+
+<script>
+alert("ADMIN HTML LOADED");
+</script>
+
+<script type="module">
+import("./admin.js")
+.then(() => {
+    alert("ADMIN JS IMPORT SUCCESS");
+})
+.catch((error) => {
+    alert("ADMIN JS ERROR: " + error.message);
+});
+</script>
+
+</body>
+</html>

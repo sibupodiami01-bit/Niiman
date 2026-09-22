@@ -17,6 +17,7 @@ const checkoutItems = document.getElementById("checkoutItems");
 const checkoutTotal = document.getElementById("checkoutTotal");
 
 let total = 0;
+let discount = 0;
 let finalPayable = 0;
 
 if (cart.length === 0) {
@@ -41,7 +42,6 @@ if (cart.length === 0) {
     });
 }
 
-checkoutTotal.textContent = total;
 document.getElementById("subtotal").innerText =
     "Subtotal: ₹" + total.toFixed(2);
 
@@ -54,6 +54,11 @@ document.getElementById("deliveryCharge").innerText =
 
 document.getElementById("discountAmount").innerText =
     "Discount: ₹0";
+
+finalPayable = total + deliveryCharge;
+
+checkoutTotal.innerText =
+    "Total Payable: ₹" + finalPayable.toFixed(2);
 
 // Place Order
 const placeOrder = document.getElementById("placeOrder");
@@ -80,7 +85,8 @@ let orderData = {
     phone: phone,
     address: address,
     items: cart,
-    total: finalPayable
+    total: finalPayable,
+    status: "Confirmed"
 };
 
 // Save Order to Firestore
@@ -97,8 +103,7 @@ try {
     alert("Order save failed. Please try again.");
     console.error("Firestore Save Error:", error);
 }
-
-let discount = 0;
+};
 
 document.getElementById("applyCoupon").addEventListener("click", () => {
 

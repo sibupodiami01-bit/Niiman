@@ -167,7 +167,6 @@ Subtotal: ₹${item.price * item.quantity}<br><br>
 🗑 Remove
 </button>
 `;
-
         cartItems.appendChild(div);
 
     });
@@ -262,6 +261,7 @@ function decreaseQty(index) {
 
 }
 
+
 function removeItem(index) {
 
     cart.splice(index, 1);
@@ -270,7 +270,12 @@ function removeItem(index) {
 
 }
 
-renderCart();
+
+// Make cart buttons work with inline onclick
+window.increaseQty = increaseQty;
+window.decreaseQty = decreaseQty;
+window.removeItem = removeItem;
+console.log("Cart functions loaded");
 
 // ===== Product Search =====
 
